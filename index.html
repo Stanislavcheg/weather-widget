@@ -1,0 +1,129 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Angular Features</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="angular-resource.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-route.js"></script>
+	<script type="text/javascript" src="controller.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-app="weather" ng-controller="weatherCtrl" >
+
+	
+			<div class="hero" data-bg-image="images/banner.png">
+				<div class="container">
+					<form action="#" class="find-location">
+						<input type="text" placeholder="Find your location..." ng-model="city" ng-enter="search()">
+						<input type="button" class="submit" value="Find" ng-click="search($event)">
+					</form>
+
+				</div>
+			</div>
+			<div class="forecast-table" ng-show="data">
+				<div class="container">
+					<div class="forecast-container">
+						<div class="today forecast">
+							<div class="forecast-header">
+								<div class="day">{{date() | date : "EEEE"}}</div>
+								<div class="date">{{date() | date : "MMM d"}}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="location">{{data.name}}</div>
+								<div class="degree">
+									<div class="num">{{data.main.temp}}<sup>o</sup>C</div>
+									<div class="forecast-icon">
+										<img src="{{weatherIcons[data.weather[0].main]}}" alt="" width=90>
+									</div>	
+									<span style="text-transform: uppercase;">{{data.weather.description}}</span>
+								</div>
+								<span><img src="images/icon-umberella.png" alt="">{{data.main.humidity}}%</span>
+								<span><img src="images/icon-wind.png" alt="">{{data.wind.speed}}m/s</span>
+								<span><img src="images/icon-compass.png" alt="" style="transform: rotate({{data.wind.deg - 90}}deg); -webkit-transform: rotate({{data.wind.deg - 90}}deg);">{{}}</span>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{date(1) | date : "EEEE"}}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="{{weatherIcons[dataForc.list[6].weather[0].main]}}" alt="" width=48>
+								</div>
+								<div class="degree">{{dataForc.list[6].main.temp}}<sup>o</sup>C</div>
+								<small>{{dataForc.list[1].main.temp}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{date(2) | date : "EEEE"}}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="{{weatherIcons[dataForc.list[14].weather[0].main]}}" alt="" width=48>
+								</div>
+								<div class="degree">{{dataForc.list[14].main.temp}}<sup>o</sup>C</div>
+								<small>{{dataForc.list[9].main.temp}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{date(3) | date : "EEEE"}}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="{{weatherIcons[dataForc.list[22].weather[0].main]}}" alt="" width=48>
+								</div>
+								<div class="degree">{{dataForc.list[22].main.temp}}<sup>o</sup>C</div>
+								<small>{{dataForc.list[17].main.temp}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{date(4) | date : "EEEE"}}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="{{weatherIcons[dataForc.list[30].weather[0].main]}}" alt="" width=48>
+								</div>
+								<div class="degree">{{dataForc.list[30].main.temp}}<sup>o</sup>C</div>
+								<small>{{dataForc.list[25].main.temp}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{date(5) | date : "EEEE"}}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="{{weatherIcons[dataForc.list[38].weather[0].main]}}" alt="" width=48>
+								</div>
+								<div class="degree">{{dataForc.list[38].main.temp}}<sup>o</sup>C</div>
+								<small>{{dataForc.list[33].main.temp}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{date(6) | date : "EEEE"}}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src="{{weatherIcons[dataForc.list[38].weather[0].main]}}" alt="" width=48>
+								</div>
+								<div class="degree">{{dataForc.list[38].main.temp}}<sup>o</sup>C</div>
+								<small>{{dataForc.list[33].main.temp}}<sup>o</sup></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	<div class="container" style="margin-top: 150px;">
+<!-- 		<input type="text" name="" ng-model="city"/>
+		<a href="#" ng-click="search()">Search</a> -->
+		<widget data="city"></widget>
+	</div>
+</body>
+</html>
