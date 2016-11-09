@@ -1,7 +1,21 @@
+var weather = angular.module('weather', ['ngResource', 'ngRoute']);
 
-
-
-var weather = angular.module('weather', ['ngResource']);
+weather.config(function($routeProvider){
+	$routeProvider
+	.when("/", {
+		redirectTo : "/one" 
+	})
+	.when("/one", {
+		templateUrl : "weather.html",
+		controller: "weatherCtrl" 
+	})
+	.when("/two", {
+		templateUrl : "temp2.html"
+	})
+	.otherwise({
+		redirectTo : "/one" 
+	})
+});
 
 weather.controller('weatherCtrl', function weatherCtrl($scope) {
 		$scope.date = function(daysForward){

@@ -32,13 +32,13 @@ audio:not([controls]) {
 [hidden], template {
   display: none; }
 
-html {
+.containerHole {
   background: #fff;
   color: #000;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%; }
 
-html,
+.containerHole,
 button,
 input,
 select,
@@ -46,7 +46,8 @@ textarea {
   font-family: sans-serif; }
 
 body {
-  margin: 0; }
+  margin: 0; 
+}
 
 a {
   background: transparent; }
@@ -210,7 +211,7 @@ table {
 html {
   font-size: 14px; }
 
-body {
+.containerHole {
   color: #bfc1c8;
   font-family: "Roboto", "Open Sans", sans-serif;
   font-size: 14px;
