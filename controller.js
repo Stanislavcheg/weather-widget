@@ -1,4 +1,4 @@
-var weather = angular.module('weather', ['ngResource', 'ngRoute']);
+var weather = angular.module('weather', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
 weather.config(function($routeProvider){
 	$routeProvider
@@ -10,12 +10,56 @@ weather.config(function($routeProvider){
 		controller: "weatherCtrl" 
 	})
 	.when("/two", {
-		templateUrl : "temp2.html"
+		templateUrl : "temp2.html",
+		controller: "ButtonsCtrl"
 	})
 	.otherwise({
 		redirectTo : "/one" 
 	})
 });
+
+weather.controller('TimepickerDemoCtrl', function ($scope, $log) {
+
+});
+
+weather.controller('ButtonsCtrl', function ($scope) {
+  $scope.singleModel = 1;
+  $scope.radioModel = 'Left';
+  $scope.checkModel = {
+    left: true,
+    right: false
+  };
+})
+ function disabled(data) {
+    var date = data.date,
+      mode = data.mode;
+    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+  }
+weather.controller('DatepickerCtrl', function ($scope) {
+ $scope.dateOptions = {
+    dateDisabled: disabled,
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: new Date(),
+    startingDay: 1
+  };
+
+   $scope.open = function() {
+    $scope.popup.opened = true;
+  };
+
+  $scope.setDate = function(year, month, day) {
+    $scope.dt = new Date(year, month, day);
+  };
+
+ 	$scope.popup = {
+    opened: false
+  };
+
+  }
+ );
+
+
 
 weather.controller('weatherCtrl', function weatherCtrl($scope) {
 		$scope.date = function(daysForward){

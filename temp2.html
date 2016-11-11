@@ -1,1 +1,59 @@
-<div>template 2</div>
+<form class="panel panel-default" ng-controller="ButtonsCtrl">
+	<div class="panel-heading">Registration form</div>
+  		<div class="panel-body">
+    		<div class="input-group">
+				<span class="input-group-addon">Name</span>
+				<input type="text" class="form-control" placeholder="John">
+			</div>
+
+    		<div class="input-group">
+				<span class="input-group-addon">Last Name</span>
+				<input type="text" class="form-control" placeholder="Dou">
+			</div>	
+
+			<div class="input-group">
+				<span class="input-group-addon">Email</span>
+				<input type="text" class="form-control" placeholder="example@email.com">
+			</div>
+
+			<div class="btn-group">
+      			<label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'Left'">Male</label>
+        		<label class="btn btn-primary" ng-model="radioModel" uib-btn-radio="'Right'">Female</label>
+    		</div>
+
+    		<div>
+        		<p class="input-group" ng-controller="DatepickerCtrl">
+        			<span class="input-group-addon">Date of birth</span>
+        			<input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+        			<span class="input-group-btn">
+            			<button type="button" class="btn btn-default" ng-click="open()">
+            				<i class="glyphicon glyphicon-calendar"></i>
+            			</button>
+        			</span>
+        		</p>
+      		</div>
+
+      		<div class="input-group">
+				<span class="input-group-addon">Address</span>
+				<input type="text" class="form-control" placeholder="Los Angeles">
+			</div>
+
+			<div class="input-group">
+				<span class="input-group-addon">Weight</span>
+				<input type="text" class="form-control" placeholder="75">
+			</div>
+
+			<div class="input-group">
+				<span class="input-group-addon">occupation</span>
+				<input type="text" class="form-control" placeholder="75">
+			</div>
+
+			<div class="btn-group">
+        		<label class="btn btn-primary" ng-model="checkModel.left" uib-btn-checkbox>Programming</label>
+        		<label class="btn btn-primary" ng-model="checkModel.middle" uib-btn-checkbox>Reading</label>
+        		<label class="btn btn-primary" ng-model="checkModel.right" uib-btn-checkbox>Dancing</label>
+		    </div>
+
+    	</div>
+	</div>
+</form>
