@@ -1672,6 +1672,26 @@ form textarea {
             transition: .3s ease;
     font-size: 20px;
     font-size: 1.4285714286em; }
+
     .site-footer .social-links a:hover {
       background: #009ad8;
       color: white; }
+
+.formContainer {
+  font-family: sans-serif;
+  background: #1e202b;
+  padding: 10px;
+  margin: 0px auto;
+  width: 35%;
+
+}
+
+.panel-heading {
+  padding-left: 70px; 
+  font-size: 1.4em;
+}
+
+.panel-body {
+  padding-left: 70px;
+  padding-right: 70px;
+}

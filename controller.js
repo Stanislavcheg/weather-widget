@@ -1,6 +1,7 @@
-var weather = angular.module('weather', ['ngResource', 'ngRoute', 'ui.bootstrap']);
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-weather.config(function($routeProvider){
+
+app.config(function($routeProvider){
 	$routeProvider
 	.when("/", {
 		redirectTo : "/one" 
@@ -18,50 +19,89 @@ weather.config(function($routeProvider){
 	})
 });
 
-weather.controller('TimepickerDemoCtrl', function ($scope, $log) {
+
+app.service('UserService', function(){
+	return {};
+})
+
+app.controller('FormCtrl', function ($scope, UserService) {
+$scope.user = {};
+$scope.isSubmited = false;
+
+ // UserService.name = $scope.user.name;
+ // UserService.lastName = $scope.user.lastName;
+ // UserService.email = $scope.user.email;
+ // UserService.address = $scope.user.address;
+ // UserService.weight = $scope.user.weight;
+ // UserService.occupation = $scope.user.occupation;
+ // UserService.description = $scope.user.description;
+$scope.user.sex = UserService.sex;
+$scope.user.hobbies = UserService.hobbies;
+$scope.user.dateBirth = UserService.dateBirth;
+
+$scope.descCheck = function(desc){
+	$scope.isValidDesc = desc.split(" ").length >= 20;
+};
+
+$scope.submit = function(){
+$scope.isSubmited = true;
+}
 
 });
 
-weather.controller('ButtonsCtrl', function ($scope) {
-  $scope.singleModel = 1;
-  $scope.radioModel = 'Left';
-  $scope.checkModel = {
-    left: true,
-    right: false
-  };
-})
- function disabled(data) {
-    var date = data.date,
-      mode = data.mode;
-    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-  }
-weather.controller('DatepickerCtrl', function ($scope) {
- $scope.dateOptions = {
-    dateDisabled: disabled,
-    formatYear: 'yy',
-    maxDate: new Date(2020, 5, 22),
-    minDate: new Date(),
-    startingDay: 1
-  };
 
-   $scope.open = function() {
-    $scope.popup.opened = true;
-  };
+app.controller('ButtonsCtrl', function ($scope, UserService) {
+	$scope.user = {};
+	$scope.singleModel = 1;
+	$scope.user.sex = 'Male';
+	$scope.user.hobbies = {
+    	hob1: true,
+   		hob2: false,
+   		hob3: false
+	};
 
-  $scope.setDate = function(year, month, day) {
-    $scope.dt = new Date(year, month, day);
-  };
+	$scope.checkResults = [];
+
+ 	$scope.$watchCollection('user.hobbies', function () {
+ 		$scope.checkResults = [];
+    	angular.forEach($scope.user.hobbies, function (value, key) {
+    		if (value) {
+        		$scope.checkResults.push(key);
+      		}
+    	});
+ 	});
+
+
+	UserService.sex = $scope.user.sex;
+	UserService.hobbies = $scope.checkResults;
+});
+
+app.controller('DatepickerCtrl', function ($scope, UserService) {
+	$scope.user = {};
+	$scope.dateOptions = {
+   		formatYear: 'yy',
+    	maxDate: new Date(),
+    	minDate: new Date(1900,0,1),
+    	startingDay: 1
+	};
+
+	$scope.open = function() {
+    	$scope.popup.opened = true;
+	};
+
+	$scope.setDate = function(year, month, day) {
+    	$scope.dt = new Date(year, month, day);
+	};
 
  	$scope.popup = {
-    opened: false
-  };
-
-  }
- );
-
+    	opened: false
+  	};
+  	UserService.dateBirth = $scope.user.dateBirth;
+});
 
 
-weather.controller('weatherCtrl', function weatherCtrl($scope) {
+
+app.controller('weatherCtrl', function weatherCtrl($scope) {
 		$scope.date = function(daysForward){
 			var date = new Date();
 			if (daysForward) {
@@ -89,7 +129,7 @@ weather.controller('weatherCtrl', function weatherCtrl($scope) {
 });
 
 
-weather.directive('ngEnter', function () {
+app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {
             if(event.which === 13) {
@@ -103,7 +143,7 @@ weather.directive('ngEnter', function () {
     };
 });
 
-weather.directive('widget', function (weatherResource, weatherForecastResource) {
+app.directive('widget', function (weatherResource, weatherForecastResource) {
 	return {
 		restrict: 'E',
 		link: function (scope, element) {
@@ -122,13 +162,13 @@ weather.directive('widget', function (weatherResource, weatherForecastResource) 
 	}
 });
 
-weather.factory('weatherResource', function ($resource) {
+app.factory('weatherResource', function ($resource) {
 	var api_key = '6e3fcb812a6ea26bfbb60bacee7afa6f',
 		path = 'http://api.openweathermap.org/data/2.5/weather?q=:city&units=metric&appid=' + api_key;
 	return $resource(path);
 });
 
-weather.factory('weatherForecastResource', function ($resource) {
+app.factory('weatherForecastResource', function ($resource) {
 	var api_key = '6e3fcb812a6ea26bfbb60bacee7afa6f',
 		path = 'http://api.openweathermap.org/data/2.5/forecast?q=:city,country&units=metric&appid=' + api_key;
 	return $resource(path);
