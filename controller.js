@@ -12,93 +12,85 @@ app.config(function($routeProvider){
 	})
 	.when("/two", {
 		templateUrl : "temp2.html",
-		controller: "ButtonsCtrl"
+		controller: "FormCtrl"
 	})
 	.otherwise({
 		redirectTo : "/one" 
 	})
 });
 
-
-app.service('UserService', function(){
-	return {};
-})
-
-app.controller('FormCtrl', function ($scope, UserService) {
-$scope.user = {};
-$scope.isSubmited = false;
-
- // UserService.name = $scope.user.name;
- // UserService.lastName = $scope.user.lastName;
- // UserService.email = $scope.user.email;
- // UserService.address = $scope.user.address;
- // UserService.weight = $scope.user.weight;
- // UserService.occupation = $scope.user.occupation;
- // UserService.description = $scope.user.description;
-$scope.user.sex = UserService.sex;
-$scope.user.hobbies = UserService.hobbies;
-$scope.user.dateBirth = UserService.dateBirth;
-
-$scope.descCheck = function(desc){
-	$scope.isValidDesc = desc.split(" ").length >= 20;
-};
-
-$scope.submit = function(){
-$scope.isSubmited = true;
-}
-
-});
-
-
-app.controller('ButtonsCtrl', function ($scope, UserService) {
+app.controller('FormCtrl', function ($scope) {
 	$scope.user = {};
-	$scope.singleModel = 1;
 	$scope.user.sex = 'Male';
 	$scope.user.hobbies = {
-    	hob1: true,
-   		hob2: false,
-   		hob3: false
+	  	hob1: true,
+		hob2: false,
+	 	hob3: false
+	};
+	$scope.max = 10;
+	$scope.dynamic = 0;
+	$scope.$watch('frm.$valid', function (n) {
+		$scope.type = n ? 'success' : 'danger';
+	});
+	// $scope.$watch('frm', function (n) {
+	// 	$scope.type = n.name ? 'success' : 'danger';
+	// }, true);
+
+	$scope.dateOptions = {
+	 		formatYear: 'yy',
+	    	maxDate: new Date(),
+	    	minDate: new Date(1900,0,1),
+	    	startingDay: 1
+	};
+
+	$scope.open = function() {
+	    $scope.popup.opened = true;
+	};
+
+	$scope.popup = {
+	   	opened: false
 	};
 
 	$scope.checkResults = [];
 
- 	$scope.$watchCollection('user.hobbies', function () {
- 		$scope.checkResults = [];
-    	angular.forEach($scope.user.hobbies, function (value, key) {
-    		if (value) {
-        		$scope.checkResults.push(key);
-      		}
-    	});
- 	});
-
-
-	UserService.sex = $scope.user.sex;
-	UserService.hobbies = $scope.checkResults;
+	$scope.$watchCollection('user.hobbies', function () {
+		$scope.checkResults = [];
+	   	angular.forEach($scope.user.hobbies, function (value, key) {
+	   		if (value) {
+	       		$scope.checkResults.push(key);
+	   		}
+	   	});
+	});
 });
 
-app.controller('DatepickerCtrl', function ($scope, UserService) {
-	$scope.user = {};
-	$scope.dateOptions = {
-   		formatYear: 'yy',
-    	maxDate: new Date(),
-    	minDate: new Date(1900,0,1),
-    	startingDay: 1
-	};
-
-	$scope.open = function() {
-    	$scope.popup.opened = true;
-	};
-
-	$scope.setDate = function(year, month, day) {
-    	$scope.dt = new Date(year, month, day);
-	};
-
- 	$scope.popup = {
-    	opened: false
-  	};
-  	UserService.dateBirth = $scope.user.dateBirth;
+app.directive('lowerCase', function(){
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		link: function (scope, element, attrs, ctrl) {
+   			ctrl.$parsers.push(function (value) {
+   				if (value) {
+   					return value.toLowerCase();
+   				}
+   			});
+		}
+	}
 });
 
+app.directive('validMinWords', function(){
+	return {
+		restrict: 'A',
+		require: 'ngModel',
+		scope: {
+			validMinWords: '='
+		},
+		 link: function (scope, element, attrs, ctrl) {
+   			ctrl.$validators.minWords = function (value) {
+    			return ctrl.$isEmpty(value) || value.split(' ').length >= scope.validMinWords;
+   			};
+		}
+	}
+});
 
 
 app.controller('weatherCtrl', function weatherCtrl($scope) {
