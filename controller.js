@@ -20,22 +20,45 @@ app.config(function($routeProvider){
 });
 
 app.controller('FormCtrl', function ($scope) {
-	$scope.user = {};
-	$scope.user.sex = 'Male';
-	$scope.user.hobbies = {
-	  	hob1: true,
-		hob2: false,
-	 	hob3: false
+	$scope.hobbies = {
+	  		hob1: false,
+			hob2: false,
+	 		hob3: false
 	};
-	$scope.max = 10;
-	$scope.dynamic = 0;
-	$scope.$watch('frm.$valid', function (n) {
-		$scope.type = n ? 'success' : 'danger';
-	});
-	// $scope.$watch('frm', function (n) {
-	// 	$scope.type = n.name ? 'success' : 'danger';
-	// }, true);
 
+	$scope.max = 0;
+	$scope.dynamic = 1;
+	$scope.user = {
+		name:'',
+		lastName:'',
+		email:'',
+		sex:'male',
+		hobs: [],
+		dateBirth:'',
+		address:'',
+		weight:'',
+		occupation:'',
+		description:'',
+	};
+	
+	$scope.$watch('frm.$valid', function (n) {
+		$scope.type = n ? 'primary' : 'danger';
+	});
+
+	for (prop in $scope.user) {
+		$scope.max++;	
+		$scope.$watch("user."+ prop, function (n,o) {
+		 	if(n && !o) $scope.dynamic++;
+		 	else if (!n && o) $scope.dynamic--;
+		 });
+	}
+
+	$scope.$watch("user.hobs", function (n,o) {
+		 	if(n.length && !o.length) $scope.dynamic++;
+		 	else if (!n.length && o.length) $scope.dynamic--;
+		 	console.log(n.length, "len");
+	});
+	
 	$scope.dateOptions = {
 	 		formatYear: 'yy',
 	    	maxDate: new Date(),
@@ -51,16 +74,14 @@ app.controller('FormCtrl', function ($scope) {
 	   	opened: false
 	};
 
-	$scope.checkResults = [];
-
-	$scope.$watchCollection('user.hobbies', function () {
-		$scope.checkResults = [];
-	   	angular.forEach($scope.user.hobbies, function (value, key) {
+	$scope.$watchCollection('hobbies', function () {
+	   	angular.forEach($scope.hobbies, function (value, key) {
 	   		if (value) {
-	       		$scope.checkResults.push(key);
+	       		$scope.user.hobs.push(key);
 	   		}
 	   	});
 	});
+
 });
 
 app.directive('lowerCase', function(){
