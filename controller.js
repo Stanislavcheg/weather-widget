@@ -1,6 +1,5 @@
 var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-
 app.config(function($routeProvider){
 	$routeProvider
 	.when("/", {
@@ -25,9 +24,6 @@ app.controller('FormCtrl', function ($scope) {
 			hob2: false,
 	 		hob3: false
 	};
-
-	$scope.max = 0;
-	$scope.dynamic = 1;
 	$scope.user = {
 		name:'',
 		lastName:'',
@@ -40,30 +36,28 @@ app.controller('FormCtrl', function ($scope) {
 		occupation:'',
 		description:'',
 	};
-	
+	$scope.dynamic = 1;
+	$scope.max = Object.keys($scope.user).length;
 	$scope.$watch('frm.$valid', function (n) {
 		$scope.type = n ? 'primary' : 'danger';
 	});
 
-	for (prop in $scope.user) {
-		$scope.max++;	
+	for (prop in $scope.user) {	
 		$scope.$watch("user."+ prop, function (n,o) {
-		 	if(n && !o) $scope.dynamic++;
-		 	else if (!n && o) $scope.dynamic--;
-		 });
+			console.log('prop2', prop, n, typeof n);
+			if (Array.isArray(n) && n.length && !o.length || n && !o) {
+				$scope.dynamic++
+			} else if (Array.isArray(n) && !n.length && o.length || !n && o){
+				$scope.dynamic--
+			}
+		});
 	}
 
-	$scope.$watch("user.hobs", function (n,o) {
-		 	if(n.length && !o.length) $scope.dynamic++;
-		 	else if (!n.length && o.length) $scope.dynamic--;
-		 	console.log(n.length, "len");
-	});
-	
 	$scope.dateOptions = {
-	 		formatYear: 'yy',
-	    	maxDate: new Date(),
-	    	minDate: new Date(1900,0,1),
-	    	startingDay: 1
+	 	formatYear: 'yy',
+	    maxDate: new Date(),
+	    minDate: new Date(1900,0,1),
+	    startingDay: 1
 	};
 
 	$scope.open = function() {
@@ -74,15 +68,16 @@ app.controller('FormCtrl', function ($scope) {
 	   	opened: false
 	};
 
-	$scope.$watchCollection('hobbies', function () {
-	   	angular.forEach($scope.hobbies, function (value, key) {
-	   		if (value) {
-	       		$scope.user.hobs.push(key);
-	   		}
-	   	});
-	});
+ 	$scope.$watchCollection('hobbies', function () {
+		$scope.user.hobs = [];
+ 	   	angular.forEach($scope.hobbies, function (value, key) {
+ 	   		if (value) {
+ 	       		$scope.user.hobs.push(key);
+ 	   		}
+ 	   	});
+ 	});
 
-});
+ });
 
 app.directive('lowerCase', function(){
 	return {
@@ -105,14 +100,13 @@ app.directive('validMinWords', function(){
 		scope: {
 			validMinWords: '='
 		},
-		 link: function (scope, element, attrs, ctrl) {
+		link: function (scope, element, attrs, ctrl) {
    			ctrl.$validators.minWords = function (value) {
     			return ctrl.$isEmpty(value) || value.split(' ').length >= scope.validMinWords;
    			};
 		}
 	}
 });
-
 
 app.controller('weatherCtrl', function weatherCtrl($scope) {
 		$scope.date = function(daysForward){
@@ -124,15 +118,15 @@ app.controller('weatherCtrl', function weatherCtrl($scope) {
 		};
 
 		$scope.weatherIcons = {
-		"Rain" : "images/icons/icon-9.svg",
-		"Clouds" : "images/icons/icon-3.svg",
-		"Atmosphere" : "images/icons/icon-7.svg",
-		"Thunderstorm" : "images/icons/icon-12.svg",
-		"Drizzle" : "images/icons/icon-5.svg",
-		"Snow" : "images/icons/icon-14.svg",
-		"Clear" : "images/icons/icon-2.svg",
-		"Extreme" : "images/icons/icon-8.svg",
-		"Additional" : "images/icons/icon-3.svg"
+			"Rain" : "images/icons/icon-9.svg",
+			"Clouds" : "images/icons/icon-3.svg",
+			"Atmosphere" : "images/icons/icon-7.svg",
+			"Thunderstorm" : "images/icons/icon-12.svg",
+			"Drizzle" : "images/icons/icon-5.svg",
+			"Snow" : "images/icons/icon-14.svg",
+			"Clear" : "images/icons/icon-2.svg",
+			"Extreme" : "images/icons/icon-8.svg",
+			"Additional" : "images/icons/icon-3.svg"
 		};
 
 	$scope.search = function ($event) {
@@ -140,7 +134,6 @@ app.controller('weatherCtrl', function weatherCtrl($scope) {
 		$scope.input = $scope.city;
 	}
 });
-
 
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
