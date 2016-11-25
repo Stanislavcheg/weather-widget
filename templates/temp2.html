@@ -1,0 +1,90 @@
+<div class="formContainer" ng-controller="FormCtrl">
+	<form class="panel panel-primary"  name="frm" >
+		<div class="panel-heading">Registration form</div>
+	  		<div class="panel-body">
+
+				<div class="form-group">
+				  <label for="usrName">Name:</label>
+				  <input type="text" class="form-control" id="usrName" placeholder="John" required name="name" ng-model="user.name" lower-case/>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="frm.name.$touched && frm.name.$error.required">Name is required</div>
+
+				<div class="form-group">
+				  <label for="usrLstName">Last name:</label>
+				  <input type="text" class="form-control" id="usrLstName" placeholder="Doe" ng-required="true" name="lastname" ng-model="user.lastName" lower-case/>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="frm.lastname.$touched && frm.lastname.$error.required">Last name is required</div>
+
+				<div class="form-group">
+				  <label for="email">Email:</label>
+				  <input type="email" class="form-control" id="email" placeholder="Example@email.com" ng-required="true" name="email" ng-model="user.email" lower-case/>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="frm.email.$touched && frm.email.$error.required">Email is required</div>
+
+				<div class="form-group">
+					<label>Sex:</label>
+					<br/>
+					<div class="btn-group">
+		      			<label class="btn btn-primary" ng-model="user.sex" uib-btn-radio="'male'" >Male</label>
+		        		<label class="btn btn-primary" ng-model="user.sex" uib-btn-radio="'female'" >Female</label>
+		    		</div>
+	    		</div>
+
+	    		<div class="form-group">
+	    			<label>Date of birth:</label>
+	        		<br/>
+	        		<p class="input-group">
+	        			<input type="text" class="form-control" uib-datepicker-popup is-open="popup.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="2016-11-13" name="dateBirth" ng-model="user.dateBirth" />
+	        			<span class="input-group-btn">
+	            			<button type="button" class="btn btn-default" ng-click="open()">
+	            				<i class="glyphicon glyphicon-calendar"></i>
+	            			</button>
+	        			</span>
+	        		</p>
+	      		</div>
+	      		<div class="alert alert-danger" role="alert" ng-show="frm.dateBirth.$touched && frm.dateBirth.$error.required">Date of birth is required</div>
+
+	      		<div class="form-group">
+					<label for="address">Address:</label>
+					<input type="text" class="form-control" id="address" placeholder="Los Angeles" ng-required="true" name="address" ng-model="user.address" lower-case/>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="frm.address.$touched && frm.address.$error.required">Address is required</div>
+
+	      		<div class="form-group">
+					<label for="weight">Weight:</label>
+					<input type="text" class="form-control" id="weight" placeholder="75" ng-required="true" name="weight" ng-model="user.weight" lower-case/>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="frm.weight.$touched && frm.weight.$error.required">Weight is required</div>
+
+	      		<div class="form-group">
+					<label for="occupation">Occupation:</label>
+					<input type="text" class="form-control" id="occupation" placeholder="Programmer" ng-required="true" name="occupation" ng-model="user.occupation" lower-case/>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="frm.occupation.$touched && frm.occupation.$error.required">Occupation is required</div>
+
+				<div class="form-group">
+					<label>Hobbies:</label>
+					<br/>
+					<div class="btn-group">
+		        		<label class="btn btn-primary" ng-model="hobbies.hob1" uib-btn-checkbox >Programming</label>
+		        		<label class="btn btn-primary" ng-model="hobbies.hob2" uib-btn-checkbox >Reading</label>
+		        		<label class="btn btn-primary" ng-model="hobbies.hob3" uib-btn-checkbox >Dancing</label>
+				    </div>
+				</div>
+
+			    <div class="form-group">
+				  <label for="description">Description</label>
+				  <textarea class="form-control" rows="5" id="description" placeholder="Additional information" name="description" ng-model="user.description" valid-min-words="20" lower-case></textarea>
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="frm.description.$invalid">Description must be min 20 words</div>
+
+				<uib-progressbar max="max" value="dynamic" type="{{type}}"><span style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</span></uib-progressbar>
+
+				<button type="submit" class="btn btn-primary" ng-disabled="frm.$invalid">Submit</button>
+				<pre ng-show="frm.$submitted"><code>{{user}}</code></pre>
+	    	</div>
+		</div>
+
+	</form>
+	
+</div>
