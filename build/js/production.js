@@ -11,13 +11,22 @@ app.config(function($routeProvider){
 	})
 	.when("/two", {
 		templateUrl : "templates/temp2.html",
-		controller: "FormCtrl"
+		controller: "formCtrl"
 	})
+	.when("/three", {
+		templateUrl : "templates/temp3.html",
+		controller: "dragDropCtrl"
+	})
+
 	.otherwise({
 		redirectTo : "/one" 
 	})
 });
-app.controller('FormCtrl', function ($scope) {
+app.controller('dragDropCtrl', function dragDropCtrl($scope,employeeList) {
+$scope.employeeList = employeeList;
+
+});
+app.controller('formCtrl', function ($scope) {
 	$scope.hobbies = {
 	  		hob1: false,
 			hob2: false,
@@ -161,6 +170,9 @@ app.directive('widget', function (weatherResource, weatherForecastResource) {
 			});
 		}
 	}
+});
+app.factory('employeeList', function () {
+	return [{name:'Vasiliy', position: 'Developer'},{name:'Maria', position: 'Accounter'}];
 });
 app.factory('weatherForecastResource', function ($resource) {
 	var api_key = '6e3fcb812a6ea26bfbb60bacee7afa6f',

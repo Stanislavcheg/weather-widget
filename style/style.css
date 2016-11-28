@@ -1695,3 +1695,17 @@ form textarea {
   padding-left: 70px;
   padding-right: 70px;
 }
+
+
+.employeeListCont, .bucketCont {
+  background: #009ad8;
+  color: white;
+}
+
+.employeeItem {
+  border: 2px solid white;
+}
+
+.bucket1, .bucket2 {
+
+}

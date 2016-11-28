@@ -5,22 +5,19 @@
 <head>
 	<title>Angular Features</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
 	<script type="text/javascript" src="node_modules/angular-resource/angular-resource.min.js"></script>
 	<script type="text/javascript" src="node_modules/angular-route/angular-route.js"></script>
 	<script type="text/javascript" src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="node_modules/jquery-ui.js"></script>
+	<script type="text/javascript" src="node_modules/angular-dragdrop/src/angular-dragdrop.min.js"></script>
 	<script type="text/javascript" src="build/js/production.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 <body ng-app="app">
-<ul class="nav nav-tabs">
-<li>
- <a href="#/one">weather widget</a>
- </li>
- <li>
- <a href="#/two">Form validation</a>
- </li>
-</ul>
+	<div ng-include="'templates/header.html'"></div>
 	<div class="containerHole" ng-view></div>
 </body>
 </html>

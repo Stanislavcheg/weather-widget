@@ -11,8 +11,13 @@ app.config(function($routeProvider){
 	})
 	.when("/two", {
 		templateUrl : "templates/temp2.html",
-		controller: "FormCtrl"
+		controller: "formCtrl"
 	})
+	.when("/three", {
+		templateUrl : "templates/temp3.html",
+		controller: "dragDropCtrl"
+	})
+
 	.otherwise({
 		redirectTo : "/one" 
 	})

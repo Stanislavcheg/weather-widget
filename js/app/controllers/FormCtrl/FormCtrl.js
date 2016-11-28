@@ -1,4 +1,4 @@
-app.controller('FormCtrl', function ($scope) {
+app.controller('formCtrl', function ($scope) {
 	$scope.hobbies = {
 	  		hob1: false,
 			hob2: false,
