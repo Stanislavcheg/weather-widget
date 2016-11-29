@@ -1,15 +1,23 @@
 <div class="dragDropCont row">
 	<div class="employeeListCont col-md-6">
 		<ul>
-			<li class="employeeItem" ng-repeat = "employee in employeeList">{{employee.name}} {{employee.position}}</li>
+			<li class="employeeItem" ng-repeat="employee in employeeList" data-drag="true" data-jqyoui-options="{revert:'invalid'}" jqyoui-draggable="{animate:true}" ng-hide="!employee.name" ng-model="employee">{{employee.name}} {{employee.position}}</li>
 		</ul>
 	</div>
 	<div class="bucketCont col-md-6">
-		<div class="bucket1">
-			
-		</div>
-		<div class="bucket2">
-			
+			<form class="navbar-form navbar-left bucketCreate" role="search" >
+				<div class="form-group">
+	    			<input type="text" class="form-control" placeholder="Search" ng-model="bucketName">
+				</div>
+	  			<button type="submit" class="btn btn-default" ng-click="addBucket()">Add bucket</button>
+			</form>
+		<div class="buckets">
+			<div class="panel panel-default" ng-repeat = "bucket in bucketList">
+	  			<div class="panel-heading">{{bucket}}</div>
+	  			<div class="panel-body" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>
+	  				{{list2.name}} {{list2.position}}
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

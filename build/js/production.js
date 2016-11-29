@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap']);
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ngDragDrop']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -23,9 +23,16 @@ app.config(function($routeProvider){
 	})
 });
 app.controller('dragDropCtrl', function dragDropCtrl($scope,employeeList) {
-$scope.employeeList = employeeList;
-
+	$scope.employeeList = employeeList;
+	$scope.bucketList = [];
+	$scope.list2 = {};
+	$scope.addBucket = function() {
+		$scope.bucketList.push($scope.bucketName);
+		$scope.bucketName = "";
+	}
 });
+
+
 app.controller('formCtrl', function ($scope) {
 	$scope.hobbies = {
 	  		hob1: false,

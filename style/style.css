@@ -1697,15 +1697,11 @@ form textarea {
 }
 
 
-.employeeListCont, .bucketCont {
-  background: #009ad8;
-  color: white;
+.buckets {
+  margin-top: 70px;
 }
 
 .employeeItem {
   border: 2px solid white;
 }
 
-.bucket1, .bucket2 {
-
-}
