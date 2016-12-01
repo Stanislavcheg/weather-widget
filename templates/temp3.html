@@ -1,8 +1,10 @@
 <div class="dragDropCont row">
 	<div class="employeeListCont col-md-6">
-		<ul>
-			<li class="employeeItem" ng-repeat="employee in employeeList" data-drag="true" data-jqyoui-options="{revert:'invalid'}" jqyoui-draggable="{animate:true}" ng-hide="!employee.name" ng-model="employee">{{employee.name}} {{employee.position}}</li>
-		</ul>
+		<div class="panel panel-default employeeItem" ng-repeat="employee in employeeList" data-drag="true" data-jqyoui-options="{revert:'invalid'}" jqyoui-draggable="{animate:true}" ng-hide="!employee.name" ng-model="employee">
+  			<div class="panel-body">
+    			{{employee.name}} {{employee.position}}
+  			</div>
+		</div>
 	</div>
 	<div class="bucketCont col-md-6">
 			<form class="navbar-form navbar-left bucketCreate" role="search" >
@@ -13,9 +15,13 @@
 			</form>
 		<div class="buckets">
 			<div class="panel panel-default" ng-repeat = "bucket in bucketList">
-	  			<div class="panel-heading">{{bucket}}</div>
-	  			<div class="panel-body" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>
-	  				{{list2.name}} {{list2.position}}
+	  			<div class="panel-heading">{{bucket.name}}<span class="glyphicon glyphicon-remove" ng-click="removeBucket($index)"></span></div>
+	  			<div class="panel-body" data-drop="true" ng-model="bucket.items" jqyoui-droppable="{multiple:true}">
+	  				<div class="panel panel-default" ng-repeat="item in bucket.items" ng-show="item.name" data-drag="true" data-jqyoui-options="{revert:'invalid'}" jqyoui-draggable="{animate:true}">
+  						<div class="panel-body">
+    						{{item.name}} {{item.position}}
+  						</div>
+					</div>
 				</div>
 			</div>
 		</div>

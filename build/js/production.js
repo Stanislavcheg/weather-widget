@@ -25,10 +25,21 @@ app.config(function($routeProvider){
 app.controller('dragDropCtrl', function dragDropCtrl($scope,employeeList) {
 	$scope.employeeList = employeeList;
 	$scope.bucketList = [];
-	$scope.list2 = {};
+
 	$scope.addBucket = function() {
-		$scope.bucketList.push($scope.bucketName);
+
+		$scope.bucketList.push({name: $scope.bucketName, items: []});
 		$scope.bucketName = "";
+	}
+	$scope.removeBucket = function(index) {
+		var bucketArr = [];
+		var defaultArr = [];
+		angular.copy($scope.bucketList[index].items, bucketArr);
+		angular.copy($scope.employeeList, defaultArr);
+		$scope.bucketList.splice(index, 1);
+		defaultArr = defaultArr.concat(bucketArr);
+		$scope.employeeList = defaultArr;
+
 	}
 });
 
@@ -179,7 +190,7 @@ app.directive('widget', function (weatherResource, weatherForecastResource) {
 	}
 });
 app.factory('employeeList', function () {
-	return [{name:'Vasiliy', position: 'Developer'},{name:'Maria', position: 'Accounter'}];
+	return [{name:'Vasiliy', position: 'Developer'},{name:'Maria', position: 'Accounter'}, {name:'Andrew', position: 'QA'}, {name:'Ihor', position: 'Manager'}];
 });
 app.factory('weatherForecastResource', function ($resource) {
 	var api_key = '6e3fcb812a6ea26bfbb60bacee7afa6f',
