@@ -1705,3 +1705,41 @@ form textarea {
   border: 2px solid white;
 }
 
+.dragDropCont {
+  width: 700px;
+  margin: 0px auto;
+}
+
+
+
+.employeeListCont {
+  margin-top: 70px;
+}
+
+.bucketCreate{
+  display: inline-block;
+
+}
+
+.form-group .search {
+width: 198px;
+margin-left: -13px;
+padding-left: -10px;
+}
+
+.remove {
+  float: right;
+}
+
+.panel-heading{
+  height: 40px;
+}
+
+.bucketData{
+  margin: 5px;
+  padding: 0;
+}
+
+.panel-body { 
+padding: 10px;
+}

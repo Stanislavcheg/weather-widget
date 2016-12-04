@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap', 'ngDragDrop']);
+var app = angular.module('app', ['ngResource', 'ngRoute', 'ui.bootstrap', 'dndLists']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -32,14 +32,12 @@ app.controller('dragDropCtrl', function dragDropCtrl($scope,employeeList) {
 		$scope.bucketName = "";
 	}
 	$scope.removeBucket = function(index) {
-		var bucketArr = [];
-		var defaultArr = [];
-		angular.copy($scope.bucketList[index].items, bucketArr);
-		angular.copy($scope.employeeList, defaultArr);
+		var len = $scope.bucketList[index].items.length;
+		var items = $scope.bucketList[index].items;
+		for (var i = 0; i <len; i++) {
+			$scope.employeeList.push(items[i]);
+		}
 		$scope.bucketList.splice(index, 1);
-		defaultArr = defaultArr.concat(bucketArr);
-		$scope.employeeList = defaultArr;
-
 	}
 });
 

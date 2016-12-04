@@ -1,6 +1,6 @@
 <div class="dragDropCont row">
-	<div class="employeeListCont col-md-6">
-		<div class="panel panel-default employeeItem" ng-repeat="employee in employeeList" data-drag="true" data-jqyoui-options="{revert:'invalid'}" jqyoui-draggable="{animate:true}" ng-hide="!employee.name" ng-model="employee">
+	<div class="employeeListCont col-md-6" dnd-list="employeeList">
+		<div class="panel panel-default employeeItem" ng-repeat="employee in employeeList"  dnd-draggable="employee" dnd-moved="employeeList.splice($index, 1)" dnd-effect-allowed="move">
   			<div class="panel-body">
     			{{employee.name}} {{employee.position}}
   			</div>
@@ -9,15 +9,15 @@
 	<div class="bucketCont col-md-6">
 			<form class="navbar-form navbar-left bucketCreate" role="search" >
 				<div class="form-group">
-	    			<input type="text" class="form-control" placeholder="Search" ng-model="bucketName">
+	    			<input type="text" class="form-control search" placeholder="Bucket name" ng-model="bucketName">
 				</div>
 	  			<button type="submit" class="btn btn-default" ng-click="addBucket()">Add bucket</button>
 			</form>
 		<div class="buckets">
 			<div class="panel panel-default" ng-repeat = "bucket in bucketList">
-	  			<div class="panel-heading">{{bucket.name}}<span class="glyphicon glyphicon-remove" ng-click="removeBucket($index)"></span></div>
-	  			<div class="panel-body" data-drop="true" ng-model="bucket.items" jqyoui-droppable="{multiple:true}">
-	  				<div class="panel panel-default" ng-repeat="item in bucket.items" ng-show="item.name" data-drag="true" data-jqyoui-options="{revert:'invalid'}" jqyoui-draggable="{animate:true}">
+	  			<div class="panel-heading">{{bucket.name}}<span class="glyphicon glyphicon-remove remove" ng-click="removeBucket($index)"></span></div>
+	  			<div class="panel-body" ng-model="bucket.items" dnd-list="bucket.items">
+	  				<div class="panel panel-default bucketData" ng-repeat="item in bucket.items" dnd-draggable="item" dnd-moved="bucket.items.splice($index, 1)" dnd-effect-allowed="move">
   						<div class="panel-body">
     						{{item.name}} {{item.position}}
   						</div>
